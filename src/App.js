@@ -1,51 +1,49 @@
 import Header from './components/Header'
-import Tasks from './components/Tasks'
+import Sub from './components/Subs'
 import { useState } from 'react'
-import AddTask from './components/AddTask'
+import AddSub from './components/AddSub'
 import React from 'react'
 import Button2 from './components/Button2'
 import ReturnGPA from './components/ReturnGPA';
 
 
 const App = () => {
-  const [showAddTask, setShowAddTask] = useState(false)
-  const [tasks, setTasks] = useState(
-    [
-       
-        ]
+  const [showAddSub, setShowAddSub] = useState(false)
+  const [subs, setSubs] = useState(
+    [ ]
 )
-//Delete task
-const deleteTask = (id) =>{
+//Delete 
+const deleteSub = (id) =>{
   console.log('lol')
-  setTasks(tasks.filter((task) => task.id !== id))
+  setSubs(subs.filter((sub) => sub.id !== id))
 }
 
 //Toggle Reminder
 const toggleReminder = (id) => {
-    setTasks(tasks.map((task) => task.id === id ? { ...task, remider: !task.reminder} : task ))
+    set(subs.map((sub) => sub.id === id ? { ...sub, remider: !sub.reminder} : sub ))
 }
 
 //CalculateGPA
 const calculateGPA = () => {
   console.log('nanana')
-  return tasks.reduce((gpas, subject) => gpas + parseInt(subject.gpa, 10), 0) / tasks.length
+  return subs.reduce((gpas, subject) => gpas + parseInt(subject.gpa, 10), 0) / subs.length
    
 }
 
-//AddTask
-const addTask = (task) => {
+//Add
+const addSub = (t) => {
   const id = Math.floor(Math.random() * 1000) + 1
-  const newTask = { id, ...task}
-  setTasks([...tasks, newTask])
+  const newSub = { id, ...t}
+  setSubs([...subs, newSub])
 }
   return (
     <div className='container' >
       <Header title={"Subject and GPA Tracker"} onAdd={() => setShowAddTask(!showAddTask)}
       showAdd={showAddTask}/>
       {showAddTask && <AddTask onAdd={addTask} />}
-      {tasks.length > 0  ? (<Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/>) : ('Nothing yet to show)') }
+      {subs.length > 0  ? (<Subs subs={subs} onDelete={deleteTask} onToggle={toggleReminder}/>) : ('Nothing yet to show)') }
       <ReturnGPA />
-      <h1>{tasks.length > 0 ?  (tasks.reduce((gpas, subject) => gpas + parseInt(subject.gpa, 10), 0) / tasks.length): ('0.0')}</h1>
+      <h1>{subs.length > 0 ?  (subs.reduce((gpas, subject) => gpas + parseInt(subject.gpa, 10), 0) / subs.length): ('0.0')}</h1>
   
       <></>
      
